@@ -1,0 +1,97 @@
+#include<iostream>
+using namespace std;
+class shape
+{
+    protected:
+        int a,b;
+    public:
+        virtual void accept()
+        {
+            cout<<"Enter values of a and b\n";
+            cin>>a>>b;
+        }   
+        virtual void area()=0;
+};
+class triangle:public shape
+{
+    public:
+        void area()
+        {
+            double ans;
+            ans=0.5*a*b;
+            cout<<"Area of triangle = "<<ans;
+        }
+};
+class rectangle:public shape
+{
+    public:
+        void area()
+        {
+            double ans;
+            ans=a*b;
+            cout<<"Area of triangle = "<<ans;
+        }
+};
+int main()
+{
+    shape *ptr;
+    triangle T;
+    rectangle R;
+    int ch;
+    do
+    {
+        cout<<"\nArea of\n1.Triangle\n2.Rectangle\n";
+        cout<<"Enter your choice\n";
+        cin>>ch;
+        switch(ch)
+        {
+            case 1:
+               ptr=&T;
+               ptr->accept();
+               ptr->area();
+               break;
+               
+            case 2:
+               ptr=&R;
+               ptr->accept();
+               ptr->area();
+               break;
+               
+            default:
+               cout<<"\nSorry!!!Wrong choice\n";      
+        }
+    }
+    while(ch<3);
+}
+
+
+
+[it@localhost ~]$ g++ assignment5.cpp
+[it@localhost ~]$ ./a.out
+
+Area of
+1.Triangle
+2.Rectangle
+Enter your choice
+1
+Enter values of a and b
+6
+3
+Area of triangle = 9
+Area of
+1.Triangle
+2.Rectangle
+Enter your choice
+2
+Enter values of a and b
+3
+4
+Area of triangle = 12
+Area of
+1.Triangle
+2.Rectangle
+Enter your choice
+3
+
+Sorry!!!Wrong choice
+[it@localhost ~]$ 

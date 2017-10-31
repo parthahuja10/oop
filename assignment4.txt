@@ -1,0 +1,445 @@
+#include<iostream>
+#include<string.h>
+using namespace std;
+
+class A
+{
+ protected:
+      char name[20],bg[10],dob[10];
+};//A
+
+
+class B
+{
+ protected:
+      float ht,wt;
+};//B
+
+
+class C
+{
+ protected:
+      int ipolicy_num;
+      char cadd[10];
+};//C
+
+
+class employee:public A,public B,public C
+{
+  private:
+       int telnum,dlnum;
+  
+  public:
+       void accept();
+       void display();
+       int search(char k[]);
+};//employee
+
+
+void employee::accept()
+{
+  cout<<"\nEnter name :";
+  cin>>name;
+  cout<<"Enter date of birth :";
+  cin>>dob;
+  cout<<"Enter height :";
+  cin>>ht;
+  cout<<"Enter weight :";
+  cin>>wt;
+  cout<<"Enter insurance policy number :";
+  cin>>ipolicy_num;
+  cout<<"Enter the contact address :";
+  cin>>cadd;
+  cout<<"Enter telephone number :";
+  cin>>telnum;
+  cout<<"Enter driving licence number :";
+  cin>>dlnum;
+}//accept
+
+
+void employee::display()
+{
+cout<<"\n"<<name<<"\t"<<dob<<"\t"<<ht<<"\t"<<wt<<"\t"<<ipolicy_num<<"\t"<<cadd<<"\t"<<telnum<<"\t"<<"\t"<<dlnum<<"\n";
+}//display
+
+
+int employee::search(char k[20])
+{
+  if(strcmp(name,k)==0)
+    return 1;
+  else
+    return 0;
+}//search
+
+
+int main()
+{
+  int i,n,j,ch,val;
+  char k[20];
+  employee e[20];
+  cout<<"\nEnter the number of records to be entered :";
+  cin>>n;
+  do
+  {
+    cout<<"\n\n////Data Menu////\n1--Accept\n2--Display\n3--Insert\n4--Search\n5--Modify\n6--Delete\n\nEnter your choice :";
+    cin>>ch;
+    switch(ch)
+    {
+      case 1: for(i=0;i<n;i++)
+              {
+                e[i].accept();
+              }
+              break;
+
+      case 2: cout<<"\nName"<<"\t"<<"D-O-B"<<"\t"<<"Height"<<"\t"<<"Weight"<<"\t"<<"Policy"<<"\t"<<"Address"<<"\t"<<"\t"<<"Telephone"<<"\t"<<"lic";
+              for(i=0;i<n;i++)
+              {
+                e[i].display();
+              }
+              break;
+
+      case 3: e[n++].accept();
+              break;
+
+      case 4: cout <<"\nEnter the name to be searched :";
+              cin>>k;
+              for(i=0;i<n;i++)
+              {
+                j=e[i].search(k);
+                if(j==1)
+                {
+                  cout<<"\nData found";
+                  break;
+                }
+              }
+              if(j==0)
+                 cout<<"\nData not found";
+              break;
+     
+      case 5: cout <<"\nEnter the name to be modified :";
+              cin>>k;
+              for(i=0;i<n;i++)
+              {
+                j=e[i].search(k);
+                if(j==1)
+                {
+                  e[i].accept();
+                  break;
+                }
+              }
+              
+              if(j==0)
+                 cout<<"\nData not found";
+              break;
+
+     case 6: cout <<"\nEnter the name to be deleted :";
+              cin>>k;
+              
+              for(i=0;i<n;i++)
+              {
+		val=e[i].search(k);
+                if(val==1)
+                {  
+                   for(;i<n-1;i++)
+                   {
+                      e[i]=e[i+1];
+                   }
+                   n--;
+                 }
+                
+               }
+               if(val==0)
+                 cout<<"\nData not found";
+              break;
+      
+      default: return 0;
+    }//switch
+  }while(ch<7);
+}//main
+
+
+
+[fedora@localhost ~]$ g++ Data.cpp
+[fedora@localhost ~]$ ./a.out
+
+Enter the number of records to be entered :3
+
+
+////Data Menu////
+1--Accept
+2--Display
+3--Insert
+4--Search
+5--Modify
+6--Delete
+
+Enter your choice :1
+
+Enter name :Rita
+Enter date of birth :23-6-98
+Enter height :5.2
+Enter weight :57
+Enter insurance policy number :234
+Enter the contact address :abc-pune
+Enter telephone number :2534678
+Enter driving licence number :334
+
+Enter name :Mina
+Enter date of birth :5-7-87
+Enter height :5.4
+Enter weight :59
+Enter insurance policy number :534
+Enter the contact address :def-shirdi
+Enter telephone number :2645789
+Enter driving licence number :343
+
+Enter name :George
+Enter date of birth :17-8-97
+Enter height :6.1
+Enter weight :70
+Enter insurance policy number :763
+Enter the contact address :ijk-pune
+Enter telephone number :2763589
+Enter driving licence number :115
+
+
+////Data Menu////
+1--Accept
+2--Display
+3--Insert
+4--Search
+5--Modify
+6--Delete
+
+Enter your choice :2
+
+Name	D-O-B	Height	Weight	Policy	Address		Telephone	lic
+Rita	23-6-98	5.2	57	234	abc-pune	2534678		334
+
+Mina	5-7-87	5.4	59	534	def-shirdi	2645789		343
+
+George	17-8-97	6.1	70	763	ijk-pune	2763589		115
+
+
+////Data Menu////
+1--Accept
+2--Display
+3--Insert
+4--Search
+5--Modify
+6--Delete
+
+Enter your choice :3
+
+Enter name :David
+Enter date of birth :4-2-96
+Enter height :6.4
+Enter weight :75
+Enter insurance policy number :184
+Enter the contact address :fgh-texas
+Enter telephone number :3651489
+Enter driving licence number :203
+
+
+////Data Menu////
+1--Accept
+2--Display
+3--Insert
+4--Search
+5--Modify
+6--Delete
+
+Enter your choice :2
+
+Name	D-O-B	Height	Weight	Policy	Address		Telephone	lic
+Rita	23-6-98	5.2	57	234	abc-pune	2534678		334
+
+Mina	5-7-87	5.4	59	534	def-shirdi	2645789		343
+
+George	17-8-97	6.1	70	763	ijk-pune	2763589		115
+
+David	4-2-96	6.4	75	184	fgh-texas	3651489		203
+
+
+////Data Menu////
+1--Accept
+2--Display
+3--Insert
+4--Search
+5--Modify
+6--Delete
+
+Enter your choice :4
+
+Enter the name to be searched :David
+
+Data found
+
+////Data Menu////
+1--Accept
+2--Display
+3--Insert
+4--Search
+5--Modify
+6--Delete
+
+Enter your choice :4
+
+Enter the name to be searched :Lalita
+
+Data not found
+
+////Data Menu////
+1--Accept
+2--Display
+3--Insert
+4--Search
+5--Modify
+6--Delete
+
+Enter your choice :5
+
+Enter the name to be modified :George
+
+Enter name :Jacob
+Enter date of birth :25-7-97
+Enter height :6.5
+Enter weight :76
+Enter insurance policy number :632
+Enter the contact address :klm-shimla
+Enter telephone number :2837915
+Enter driving licence number :711 
+
+
+////Data Menu////
+1--Accept
+2--Display
+3--Insert
+4--Search
+5--Modify
+6--Delete
+
+Enter your choice :2
+
+Name	D-O-B	Height	Weight	Policy	Address		Telephone	lic
+Rita	23-6-98	5.2	57	234	abc-pune	2534678		334
+
+Mina	5-7-87	5.4	59	534	def-shirdi	2645789		343
+
+Jacob	25-7-97	6.5	76	632	klm-shimla	2837915		711
+
+David	4-2-96	6.4	75	184	fgh-texas	3651489		203
+
+
+////Data Menu////
+1--Accept
+2--Display
+3--Insert
+4--Search
+5--Modify
+6--Delete
+
+Enter your choice :6
+
+Enter the name to be deleted :Rita
+
+
+////Data Menu////
+1--Accept
+2--Display
+3--Insert
+4--Search
+5--Modify
+6--Delete
+
+Enter your choice :2
+
+Name	D-O-B	Height	Weight	Policy	Address		Telephone	lic
+Mina	5-7-87	5.4	59	534	def-shirdi	2645789		343
+
+Jacob	25-7-97	6.5	76	632	klm-shimla	2837915		711
+
+David	4-2-96	6.4	75	184	fgh-texas	3651489		203
+
+
+////Data Menu////
+1--Accept
+2--Display
+3--Insert
+4--Search
+5--Modify
+6--Delete
+
+Enter your choice :3 
+
+Enter name :Lalita
+Enter date of birth :17-9-95
+Enter height :5.6
+Enter weight :60
+Enter insurance policy number :465
+Enter the contact address :dfg-pune
+Enter telephone number :2837596
+Enter driving licence number :661
+
+
+////Data Menu////
+1--Accept
+2--Display
+3--Insert
+4--Search
+5--Modify
+6--Delete
+
+Enter your choice :2
+
+Name	D-O-B	Height	Weight	Policy	Address		Telephone	lic
+Mina	5-7-87	5.4	59	534	def-shirdi	2645789		343
+
+Jacob	25-7-97	6.5	76	632	klm-shimla	2837915		711
+
+David	4-2-96	6.4	75	184	fgh-texas	3651489		203
+
+Lalita	17-9-95	5.6	60	465	dfg-pune	2837596		661
+
+
+////Data Menu////
+1--Accept
+2--Display
+3--Insert
+4--Search
+5--Modify
+6--Delete
+
+Enter your choice :6
+
+Enter the name to be deleted :David
+
+
+////Data Menu////
+1--Accept
+2--Display
+3--Insert
+4--Search
+5--Modify
+6--Delete
+
+Enter your choice :2
+
+Name	D-O-B	Height	Weight	Policy	Address		Telephone	lic
+Mina	5-7-87	5.4	59	534	def-shirdi	2645789		343
+
+Jacob	25-7-97	6.5	76	632	klm-shimla	2837915		711
+
+Lalita	17-9-95	5.6	60	465	dfg-pune	2837596		661
+
+
+////Data Menu////
+1--Accept
+2--Display
+3--Insert
+4--Search
+5--Modify
+6--Delete
+
+Enter your choice :7
+[fedora@localhost ~]$ 
